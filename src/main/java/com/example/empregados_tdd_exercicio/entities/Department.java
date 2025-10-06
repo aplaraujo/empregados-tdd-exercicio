@@ -1,8 +1,16 @@
 package com.example.empregados_tdd_exercicio.entities;
 
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Department {
+@Entity
+@Table(name = "tb_department")
+public class Department implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 

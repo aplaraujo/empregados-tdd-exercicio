@@ -31,4 +31,16 @@ public class DepartmentService {
         DepartmentDTO dto = new DepartmentDTO(department);
         return dto;
     }
+
+    @Transactional
+    public DepartmentDTO insert(DepartmentDTO dto) {
+        Department entity = new Department();
+        copyDtoToEntity(dto, entity);
+        entity = departmentRepository.save(entity);
+        return new DepartmentDTO(entity);
+    }
+
+    private void copyDtoToEntity(DepartmentDTO dto, Department entity) {
+        entity.setName(dto.getName());
+    }
 }

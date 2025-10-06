@@ -3,6 +3,8 @@ package com.example.empregados_tdd_exercicio.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,6 +15,9 @@ public class Department implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @OneToMany(mappedBy = "department")
+    private List<Employee> employees = new ArrayList<>();
 
     public Department() {}
 
@@ -35,6 +40,10 @@ public class Department implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
     @Override

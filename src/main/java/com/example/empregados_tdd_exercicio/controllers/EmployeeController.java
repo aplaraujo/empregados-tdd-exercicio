@@ -3,6 +3,7 @@ package com.example.empregados_tdd_exercicio.controllers;
 import com.example.empregados_tdd_exercicio.dto.EmployeeDTO;
 import com.example.empregados_tdd_exercicio.entities.Employee;
 import com.example.empregados_tdd_exercicio.services.EmployeeService;
+import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,5 +37,11 @@ public class EmployeeController {
         dto = employeeService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value="/{id}")
+    public ResponseEntity<EmployeeDTO> update(@PathVariable Long id, @RequestBody EmployeeDTO dto)  {
+        dto = employeeService.update(id, dto);
+        return ResponseEntity.ok(dto);
     }
 }

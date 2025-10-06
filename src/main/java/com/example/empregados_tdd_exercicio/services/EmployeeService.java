@@ -47,6 +47,14 @@ public class EmployeeService {
         return new EmployeeDTO(entity);
     }
 
+    @Transactional
+    public EmployeeDTO update(Long id, EmployeeDTO dto) {
+        Employee entity = employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id: " + id));
+        copyDtoToEntity(dto, entity);
+        entity = employeeRepository.save(entity);
+        return new EmployeeDTO(entity);
+    }
+
     private void copyDtoToEntity(EmployeeDTO dto, Employee entity) {
         Department department = departmentRepository.getReferenceById(dto.getDepartment().getId());
         entity.setName(dto.getName());

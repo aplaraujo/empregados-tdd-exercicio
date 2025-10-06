@@ -4,7 +4,7 @@ import com.example.empregados_tdd_exercicio.entities.Department;
 
 import java.io.Serializable;
 
-public class DepartmentDTO implements Serializable {
+public class DepartmentDTO  {
     private Long id;
     private String name;
 

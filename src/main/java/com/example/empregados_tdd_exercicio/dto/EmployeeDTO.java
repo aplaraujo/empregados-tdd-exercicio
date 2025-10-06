@@ -1,28 +1,31 @@
 package com.example.empregados_tdd_exercicio.dto;
-
-import com.example.empregados_tdd_exercicio.entities.Department;
 import com.example.empregados_tdd_exercicio.entities.Employee;
 
-public class EmployeeDTO {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class EmployeeDTO implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String name;
     private String email;
-    private Department department;
+    private Long departmentId;
 
     public EmployeeDTO() {}
 
-    public EmployeeDTO(Long id, String name, String email, Department department) {
+    public EmployeeDTO(Long id, String name, String email, Long departmentId) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.department = department;
+        this.departmentId = departmentId;
     }
 
     public EmployeeDTO(Employee entity) {
         this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();
-        this.department = entity.getDepartment();
+        this.departmentId = entity.getDepartment().getId();
     }
 
     public Long getId() {
@@ -37,7 +40,7 @@ public class EmployeeDTO {
         return email;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Long getDepartmentId() {
+        return departmentId;
     }
 }

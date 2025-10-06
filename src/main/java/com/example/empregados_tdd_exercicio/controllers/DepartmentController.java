@@ -2,6 +2,7 @@ package com.example.empregados_tdd_exercicio.controllers;
 
 import com.example.empregados_tdd_exercicio.dto.DepartmentDTO;
 import com.example.empregados_tdd_exercicio.services.DepartmentService;
+import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,5 +35,12 @@ public class DepartmentController {
         dto = departmentService.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<DepartmentDTO> update(@PathVariable Long id, @RequestBody DepartmentDTO dto)
+            throws InvalidDefinitionException {
+        dto = departmentService.update(id, dto);
+        return ResponseEntity.ok(dto);
     }
 }

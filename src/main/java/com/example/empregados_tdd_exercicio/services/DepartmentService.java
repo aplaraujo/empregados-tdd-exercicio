@@ -40,6 +40,14 @@ public class DepartmentService {
         return new DepartmentDTO(entity);
     }
 
+    @Transactional
+    public DepartmentDTO update(Long id, DepartmentDTO dto) {
+        Department entity = departmentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Department not found with id: " + id));
+        copyDtoToEntity(dto, entity);
+        entity = departmentRepository.save(entity);
+        return new DepartmentDTO(entity);
+    }
+
     private void copyDtoToEntity(DepartmentDTO dto, Department entity) {
         entity.setName(dto.getName());
     }

@@ -1,4 +1,5 @@
 package com.example.empregados_tdd_exercicio.dto;
+import com.example.empregados_tdd_exercicio.entities.Department;
 import com.example.empregados_tdd_exercicio.entities.Employee;
 
 import java.io.Serial;
@@ -10,22 +11,22 @@ public class EmployeeDTO implements Serializable {
     private Long id;
     private String name;
     private String email;
-    private Long departmentId;
+    private DepartmentDTO department;
 
     public EmployeeDTO() {}
 
-    public EmployeeDTO(Long id, String name, String email, Long departmentId) {
+    public EmployeeDTO(Long id, String name, String email, DepartmentDTO department) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.departmentId = departmentId;
+        this.department = department;
     }
 
     public EmployeeDTO(Employee entity) {
         this.id = entity.getId();
         this.name = entity.getName();
         this.email = entity.getEmail();
-        this.departmentId = entity.getDepartment().getId();
+        this.department = new DepartmentDTO(entity.getDepartment());
     }
 
     public Long getId() {
@@ -40,7 +41,7 @@ public class EmployeeDTO implements Serializable {
         return email;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
+    public DepartmentDTO getDepartment() {
+        return department;
     }
 }

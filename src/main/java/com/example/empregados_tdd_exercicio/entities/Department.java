@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_department")
-public class Department implements Serializable {
+public class Department  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +18,7 @@ public class Department implements Serializable {
     private String name;
 
     @OneToMany(mappedBy = "department")
+    @JsonIgnore
     private List<Employee> employees = new ArrayList<>();
 
     public Department() {}

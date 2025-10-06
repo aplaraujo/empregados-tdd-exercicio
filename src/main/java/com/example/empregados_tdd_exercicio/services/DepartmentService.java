@@ -3,11 +3,14 @@ package com.example.empregados_tdd_exercicio.services;
 import com.example.empregados_tdd_exercicio.dto.DepartmentDTO;
 import com.example.empregados_tdd_exercicio.entities.Department;
 import com.example.empregados_tdd_exercicio.repositories.DepartmentRepository;
+import com.example.empregados_tdd_exercicio.services.exceptions.DatabaseException;
 import com.example.empregados_tdd_exercicio.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -46,6 +49,19 @@ public class DepartmentService {
         copyDtoToEntity(dto, entity);
         entity = departmentRepository.save(entity);
         return new DepartmentDTO(entity);
+    }
+
+    @Transactional(propagation= Propagation.SUPPORTS)
+    public void delete(Long id) {
+        if (!departmentRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Resource not found!");
+        }
+
+        try {
+            departmentRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Referencial integrity failure");
+        }
     }
 
     private void copyDtoToEntity(DepartmentDTO dto, Department entity) {

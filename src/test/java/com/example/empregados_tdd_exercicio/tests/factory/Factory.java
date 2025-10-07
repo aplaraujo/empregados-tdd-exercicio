@@ -16,6 +16,6 @@ public class Factory {
     }
 
     public static Department createDepartment() {
-        return new Department(null, "Financial");
+        return new Department(1L, "Financial");
     }
 }
